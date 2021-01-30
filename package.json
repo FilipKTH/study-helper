@@ -1,0 +1,21 @@
+{
+  "name": "max-quiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --entry ./src/index.js -o ./public/bin --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.12.3",
+    "mithril": "^2.0.4"
+  },
+  "devDependencies": {
+    "webpack": "^5.19.0",
+    "webpack-cli": "^4.4.0"
+  }
+}
