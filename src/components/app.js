@@ -31,7 +31,7 @@ const answerWrong = (arr, max) => {
 const nextQuestion = (arr, max, update) => {
   return (event) => {
     if(max > 0){
-      if(event.keyCode === 49 && max) update(answerCorrect(arr, max));
+      if(event.keyCode === 49) update(answerCorrect(arr, max));
       else if (event.keyCode === 50) answerWrong(arr, max)
     
       if(event.keyCode === 49 || event.keyCode === 50) m.redraw();
@@ -40,11 +40,10 @@ const nextQuestion = (arr, max, update) => {
 }
 
 let App = {
-  isLoaded: false,
-  questions: [],
+  questions: QUESTIONS,
   max: 0,
   content: () => {
-    if(App.isLoaded && App.max > 0) return m(Game, {
+    if(App.max > 0) return m(Game, {
       question: App.questions[0]
     });
     else if (App.max < 1) return m({
@@ -59,22 +58,13 @@ let App = {
     });
     else return m({view: () => m('p', 'laddar frågor')});
   },
-  oninit: () => {
-    if(!App.isLoaded)
-      m.request(
-        {method: 'GET', url: '../fragor.json'}
-      ).then(res => {
-        shuffle(res); 
-        App.questions = res;
-        App.isLoaded = true;
-        App.max = App.questions.length;
-        m.redraw();
-      });
+  oncreate: () => {
+    shuffle(App.questions);
+    App.max = App.questions.length;
+    m.redraw();
   },
   onupdate: () => {
-    if(App.isLoaded){
-      window.onkeypress = nextQuestion(App.questions, App.max, (n) => App.max = n);
-    }
+    window.onkeypress = nextQuestion(App.questions, App.max, (n) => App.max = n);
   },
   view: () => m('div', {
     class: 'App', 

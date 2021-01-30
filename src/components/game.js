@@ -15,7 +15,6 @@ let ToggleAnswer = {
   oninit: vnode => vnode.state.answer = vnode.attrs.answer,
   onupdate: (vnode) => {
     if(vnode.state.answer !== vnode.attrs.answer){
-      console.log(`${vnode.state.answer}, ${vnode.attrs.answer}`);
       vnode.state.answer = vnode.attrs.answer;
       vnode.state.show = 'none';
       vnode.state.toggleText = 'visa svar';
@@ -37,7 +36,6 @@ let ToggleAnswer = {
   ])
 }
 let Game = {
-  onupdate: () => console.log('game update'),
   view: (vnode) => m('div', {class: 'Game'}, [
     m('div',{class: 'subject'},m('h2', vnode.attrs.question.subject)),
     m('div',{class: 'questions'},
